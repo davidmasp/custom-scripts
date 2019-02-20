@@ -8,7 +8,7 @@ print_usage() {
 
 while getopts 'u:' flag; do
   case "${flag}" in
-    f) u_flag="${OPTARG}" ;;
+    u) u_flag="${OPTARG}" ;;
     *) print_usage
        exit 1 ;;
   esac
