@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# defaults
 u_flag='dmas'
 
 print_usage() {
@@ -27,8 +28,8 @@ RJOBSHARE=$((100 * ($RUNNING- 1) / ($RALLJOBS - 1) ))
 
 # print
 echo "User: $USER"
-echo "Total number of jobs: $TOTALJOBS"
-echo "Runing jobs: $RUNNING"
+echo "Total number of jobs: $(($TOTALJOBS-1))"
+echo "Runing jobs: $(($RUNNING - 1))"
 echo "Percentatge of jobs running: $PERCENTATGERUNNING %"
 echo "Jobs share: $JOBSHARE %"
 echo "Running jobs share: $RJOBSHARE %"
