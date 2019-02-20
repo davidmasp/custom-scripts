@@ -1,6 +1,20 @@
 #!/usr/bin/env bash
 
-USER=$1
+u_flag='dmas'
+
+print_usage() {
+  printf "Usage: ./getPercentatgeJobs.sh -u user"
+}
+
+while getopts 'u:' flag; do
+  case "${flag}" in
+    f) u_flag="${OPTARG}" ;;
+    *) print_usage
+       exit 1 ;;
+  esac
+done
+
+USER=$u_flag
 
 RUNNING=$(squeue -u $USER -t RUNNING | wc -l)
 TOTALJOBS=$( squeue -u $USER  | wc -l)
