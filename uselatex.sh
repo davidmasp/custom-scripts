@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 pdflatex -synctex=1 -interaction=nonstopmode $1
 
