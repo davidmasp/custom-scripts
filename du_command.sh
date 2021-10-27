@@ -4,16 +4,27 @@
 
 # t will be the target
 # o will be the output
+# d will be max depth
+# n will be total reported entries
 
-usage() { echo "Usage: $0 [-t path/to/score] [-o path/to/report]" 1>&2; exit 1; }
+usage() { echo "Usage: $0 -t path/to/score -o path/to/report [-d 2] [-n 20]" 1>&2; exit 1; }
 
-while getopts "t:o:" o; do
+MAXDEPTH=2
+TOPN=20
+
+while getopts "t:o:d:n:" o; do
     case "${o}" in
         t)
             TARGET=${OPTARG}
             ;;
         o)
             FOLDER=${OPTARG}
+            ;;
+        d)
+            MAXDEPTH=${OPTARG}
+            ;;
+        n)
+            TOPN=${OPTARG}
             ;;
         *)
             usage
@@ -35,8 +46,5 @@ mkdir -p $FOLDER
 TODAY=$(date "+%Y%m%d")
 OUTPUT=$FOLDER/$TODAY"_disk_usage_table.tsv"
 
-# header
-echo "size(mb)\tfile" > $OUTPUT
-
 # run command
-du -am $TARGET | sort -nr -k1 >> $OUTPUT
+du -hc --max-depth=${MAXDEPTH} ${TARGET} | sort -rh | head -n ${TOPN} | tee ${OUTPUT}
