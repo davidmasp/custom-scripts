@@ -7,12 +7,16 @@
 # it generates a tar compresed file (gz) with the last date of a modified 
 # file from that folder. This is very helpful to archive folders. 
 
+echo $1
+
 # script to archive a folder
 FOLDER=$(realpath -s $1) # this should also remove last slash
-
-lastDate=$(find $FOLDER -type f -not -path '*/\.*' -printf "%TY%Tm%Td\n" | sort -nr | head -n 1)
-
+lastDate=$(date -r $FOLDER "+%Y%m%d")
 DIR=$(basename $FOLDER)
 
-tar -zcvf $lastDate-$DIR.tar.gz $DIR
+echo $DIR
+echo $lastDate
+
+tar -zcf $lastDate-$DIR.tar.gz $DIR
+
 
